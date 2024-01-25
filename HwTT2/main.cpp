@@ -33,21 +33,22 @@ int main()
 	test(T1.popularity("#datastructures") == -1);
 	test(T1.popularity("#programming") == 0);
 	test(T1.popularity("#C++") == 0);
-
+	cout << "line 36" << endl;
 	T1.tweeted("#programming");
+		cout << "line 38" << endl;
 	test(T1.popularity("#algorithms") == 0);
 	test(T1.popularity("#cs4all") == 0);
 	test(T1.popularity("#datastructures") == -1);
 	test(T1.popularity("#programming") == 1);
 	test(T1.popularity("#C++") == 0);
-
+	cout << "line 43" << endl;
 	T1.tweeted("#programming");
 	test(T1.popularity("#algorithms") == 0);
 	test(T1.popularity("#cs4all") == 0);
 	test(T1.popularity("#datastructures") == -1);
 	test(T1.popularity("#programming") == 2);
 	test(T1.popularity("#C++") == 0);
-
+cout << "line 51" << endl;
 	T1.tweeted("#programming");
 	test(T1.popularity("#algorithms") == 0);
 	test(T1.popularity("#cs4all") == 0);
@@ -60,21 +61,21 @@ int main()
 	test(T1.popularity("#cs4all") == 1);
 	test(T1.popularity("#programming") == 3);
 	test(T1.popularity("#C++") == 0);
-
-	T1.tweeted("#algorithms");
+cout << "line 64" << endl;
+ 	T1.tweeted("#algorithms");
 	test(T1.popularity("#algorithms") == 1);
 	test(T1.popularity("#cs4all") == 1);
 	test(T1.popularity("#datastructures") == -1);
 	test(T1.popularity("#programming") == 3);
 	test(T1.popularity("#C++") == 0);
-
+cout << "line 71" << endl;
 	T1.tweeted("#cs4all");
 	test(T1.popularity("#algorithms") == 1);
 	test(T1.popularity("#cs4all") == 2);
 	test(T1.popularity("#datastructures") == -1);
 	test(T1.popularity("#programming") == 3);
 	test(T1.popularity("#C++") == 0);
-
+cout << "line 78" << endl;
 	T1.tweeted("#datastructures");
 	test(T1.popularity("#algorithms") == 1);
 	test(T1.popularity("#cs4all") == 2);
@@ -82,7 +83,7 @@ int main()
 	test(T1.popularity("#programming") == 3);
 	test(T1.popularity("#C++") == 0);
 
-
+cout << "line 86" << endl;
 	Trendtracker T2("small.txt");
 	T2.tweeted("#programming");
 	T2.tweeted("#programming");
@@ -102,26 +103,29 @@ int main()
 	test(T2.popularity("#cs4all") == 3);
 	test(T2.popularity("#programming") == 5);
 	test(T2.popularity("#C++") == 4);
-
+cout << "line 106" << endl;
         
 	// Enforce no usage of global variables
 	test(T1.popularity("#algorithms") == 1);
 	test(T1.popularity("#cs4all") == 2);
 	test(T1.popularity("#programming") == 3);
 	test(T1.popularity("#C++") == 0);
-        
+  cout << "line 113" << endl;      
 
 	// Test top_trend(), top_three_trends()
 	Trendtracker T3("small.txt");
 	T3.top_three_trends(R);
+	cout << R.size() << endl;
 	test(R.size() == 3);
-
+cout << "line 119" << endl;
 	T3.tweeted("#programming");
+	cout << "line 121" << endl;
 	test(T3.top_trend() == "#programming");
+	cout << "line 123" << endl;
 	T3.top_three_trends(R);
 	test(R.size() == 3);
 	test(R[0] == "#programming");
-
+cout << "line 125" << endl;
 	T3.tweeted("#C++");
 	T3.tweeted("#C++"); 
 	test(T3.top_trend() == "#C++"); 
@@ -129,7 +133,7 @@ int main()
 	test(R.size() == 3);
 	test(R[0] == "#C++");
 	test(R[1] == "#programming");
-
+cout << "line 133" << endl;
 	T3.tweeted("#algorithms");
 	T3.tweeted("#algorithms");
 	T3.tweeted("#algorithms");

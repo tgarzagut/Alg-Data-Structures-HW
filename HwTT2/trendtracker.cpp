@@ -7,6 +7,8 @@ using namespace std;
 #include <vector>
 #include <string>
 
+#include <iostream>
+
 
 // Creates a Trendtracker containing hashtags
 // found in the provided file.
@@ -25,8 +27,7 @@ Trendtracker :: Trendtracker(string filename){
 	inFS.open(filename);
 
     if(!inFS.is_open()){
-
-        exit(EXIT_FAILURE);
+        return;
     }
 
 	string hash;
@@ -37,7 +38,11 @@ Trendtracker :: Trendtracker(string filename){
 		current.pop = 0;
 		E.push_back(current);
 	}
+    inFS.close();
 
+    for(int i=0; i<3; i++){
+        S.push_back(-1);
+    }
 }
 
 // Return the number of hashtags in the Trendtracker.
@@ -53,20 +58,22 @@ int Trendtracker :: size(){
 // Must run in O(log(n)) time.
 void Trendtracker :: tweeted(string ht){
     int x = search(ht);
-    E.at(x).pop += 1;
-    if(E.at(x).pop > S.at(0)){
-        S.at(2) = S.at(1);
-        S.at(1) = S.at(0);
-        S.at(0) = x;
+    if(x != -1){
+        E.at(x).pop += 1;
+        if(S.at(0)==-1 || (E.at(x).pop > E.at(S.at(0)).pop)){
+            S.at(2) = S.at(1);
+            S.at(1) = S.at(0);
+            S.at(0) = x;
+            cout << "Adding " << E.at(x).hashtag << endl;
+        }
+        else if(S.at(1)== -1 || (E.at(x).pop > E.at(S.at(1)).pop)){
+            S.at(2) = S.at(1);
+            S.at(1) = x;
+        }
+        else if(S.at(2)== -1 || (E.at(x).pop > E.at(S.at(2)).pop) || S.at(2)==-1){
+            S.at(2) = x;
+        }
     }
-    else if(E.at(x).pop > S.at(1)){
-        S.at(2) = S.at(1);
-        S.at(1) = x;
-    }
-    else if(E.at(x).pop > S.at(2)){
-        S.at(2) = x;
-    }
-
 }
 
 // Returns the number of times a hashtag has been tweeted.
@@ -102,8 +109,7 @@ string Trendtracker :: top_trend(){
 // Must run in O(1) time.
 void Trendtracker :: top_three_trends(vector<string> &T){
     for(int i=0; i<3; i++){
-        //change to S[]
-        if(E.at(S.at(i)).hashtag.length() > 0){
+        if(S.at(i) != -1){
             T.push_back(E.at(S.at(i)).hashtag);
         }
     }
@@ -114,18 +120,12 @@ int Trendtracker:: search(string ht){
     int right = E.size() - 1;
     while (left <= right) {
         int mid = left + (right - left) / 2;
-
-        // Check if the target is present at the middle
         if (E.at(mid).hashtag == ht) {
             return mid;
         }
-
-        // If target is greater, ignore the left half
         else if (E.at(mid).hashtag < ht) {
             left = mid + 1;
         }
-
-        // If target is smaller, ignore the right half
         else {
             right = mid - 1;
         }
