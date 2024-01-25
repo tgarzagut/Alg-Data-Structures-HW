@@ -1,4 +1,4 @@
-#include "trendtracker.h";
+#include "trendtracker.h"
 
 using namespace std;
 
