@@ -2,6 +2,7 @@
 using namespace std;
 #include <vector>
 #include <string>
+#include <algorithm>
 
 // Creates a new Trendtracker tracking no hashtags.
  //
@@ -134,19 +135,4 @@ void Trendtracker :: remove(string ht){
 // with all hashtags (in most-tweeted to least-tweeted order).
 //
 // Must run in O(nk) time.
-void Trendtracker :: top_k_trends(vector<string> &T, int k){
- T.clear();
- vector<int> highest; 
- for (int i=0; i < min(k, static_cast<int>(E.size())); ++i) {
- int max = 0;
- for (int j=1; j < E.size(); j++) {
- if (find(highest.begin(), highest.end(), j) == highest.end() && E.at(j).pop > E.at(max).pop) {
- max = j;
- }
- }
- highest.push_back(max);
- }
- for(auto i = 0; i < highest.size(); i++){
- T.push_back(E.at(highest.at(i)).hashtag);
- }
-}
+
