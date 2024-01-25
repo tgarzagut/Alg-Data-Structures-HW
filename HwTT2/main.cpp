@@ -20,10 +20,10 @@ inline void _test(const char* expression, const char* file, int line)
 
 int main()
 {
-	// Setup
+	cout << "Line 23" << endl;
 	vector<string> R;
 	string s, line;
-
+	cout << "Line 26" << endl;
 
 	// Test constructor, size(), popularity(), tweeted()
 	Trendtracker T1("small.txt");

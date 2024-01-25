@@ -7,6 +7,7 @@ using namespace std;
 #include <vector>
 #include <string>
 
+
 // Creates a Trendtracker containing hashtags
 // found in the provided file.
 // The file is promised to have the following format:
@@ -23,15 +24,20 @@ Trendtracker :: Trendtracker(string filename){
     ifstream inFS;
 	inFS.open(filename);
 
-	string hashtag;
+    if(!inFS.is_open()){
+
+        exit(EXIT_FAILURE);
+    }
+
+	string hash;
 	Entry current;
 
-	while(getline(inFS, hashtag)){
-		current.hashtag = hashtag;
+	while(getline(inFS, hash)){
+		current.hashtag = hash;
 		current.pop = 0;
 		E.push_back(current);
 	}
-	
+
 }
 
 // Return the number of hashtags in the Trendtracker.
@@ -46,7 +52,21 @@ int Trendtracker :: size(){
 //
 // Must run in O(log(n)) time.
 void Trendtracker :: tweeted(string ht){
-    E.at(search(ht)).pop += 1;
+    int x = search(ht);
+    E.at(x).pop += 1;
+    if(E.at(x).pop > S.at(0)){
+        S.at(2) = S.at(1);
+        S.at(1) = S.at(0);
+        S.at(0) = x;
+    }
+    else if(E.at(x).pop > S.at(1)){
+        S.at(2) = S.at(1);
+        S.at(1) = x;
+    }
+    else if(E.at(x).pop > S.at(2)){
+        S.at(2) = x;
+    }
+
 }
 
 // Returns the number of times a hashtag has been tweeted.
@@ -55,7 +75,11 @@ void Trendtracker :: tweeted(string ht){
 // Must run in O(log(n)) time.
 int Trendtracker :: popularity(string name){
 	//call search
-	return E.at(search(name)).pop;
+    int x = search(name);
+	if(x != -1){
+        return E.at(x).pop;
+    }
+    return -1;
 }
 
 // Returns a most-tweeted hashtag.
@@ -64,8 +88,9 @@ int Trendtracker :: popularity(string name){
 // Must run in O(1) time.
 string Trendtracker :: top_trend(){
 	if(E.size()> 0){
-		return E.at(0).hashtag;
+		return  E.at(S.at(0)).hashtag;
 	}
+    return "";
 }
 
 // Fills the provided vector with the 3 most-tweeted hashtags,
@@ -77,8 +102,9 @@ string Trendtracker :: top_trend(){
 // Must run in O(1) time.
 void Trendtracker :: top_three_trends(vector<string> &T){
     for(int i=0; i<3; i++){
-        if(E.at(i).hashtag.length() != 0){
-            T.push_back(E.at(i).hashtag);
+        //change to S[]
+        if(E.at(S.at(i)).hashtag.length() > 0){
+            T.push_back(E.at(S.at(i)).hashtag);
         }
     }
 }
