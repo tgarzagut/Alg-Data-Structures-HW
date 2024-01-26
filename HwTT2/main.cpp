@@ -123,6 +123,7 @@ cout << "line 119" << endl;
 	test(T3.top_trend() == "#programming");
 	cout << "line 123" << endl;
 	T3.top_three_trends(R);
+	cout << R.size() << endl;
 	test(R.size() == 3);
 	test(R[0] == "#programming");
 cout << "line 125" << endl;
