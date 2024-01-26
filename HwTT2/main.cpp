@@ -118,6 +118,7 @@ cout << "line 106" << endl;
 	cout << R.size() << endl;
 	test(R.size() == 3);
 cout << "line 119" << endl;
+
 	T3.tweeted("#programming");
 	cout << "line 121" << endl;
 	test(T3.top_trend() == "#programming");
@@ -126,6 +127,7 @@ cout << "line 119" << endl;
 	cout << R.size() << endl;
 	test(R.size() == 3);
 	test(R[0] == "#programming");
+
 cout << "line 125" << endl;
 	T3.tweeted("#C++");
 	T3.tweeted("#C++"); 
@@ -134,7 +136,8 @@ cout << "line 125" << endl;
 	test(R.size() == 3);
 	test(R[0] == "#C++");
 	test(R[1] == "#programming");
-cout << "line 133" << endl;
+
+cout << "line 140" << endl;
 	T3.tweeted("#algorithms");
 	T3.tweeted("#algorithms");
 	T3.tweeted("#algorithms");
@@ -143,6 +146,9 @@ cout << "line 133" << endl;
 	test(R.size() == 3);
 	test(R[0] == "#algorithms");
 	test(R[1] == "#C++");
+	cout << R[0] << " pop is " << T3.popularity(R[0]) << endl;
+	cout << R[1] << " pop is " << T3.popularity(R[1]) << endl;
+	cout << R[2] << " pop is " << T3.popularity(R[2]) << endl;
 	test(R[2] == "#programming");
 
 	T3.tweeted("#cs4all");

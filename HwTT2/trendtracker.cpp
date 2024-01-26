@@ -59,28 +59,36 @@ int Trendtracker :: size(){
 void Trendtracker :: tweeted(string ht){
     int x = search(ht);
     if(x != -1){
+        //     cout << "Current pop count = " << E.at(x).pop << endl;)){
         E.at(x).pop += 1;
-        
-        if(S.at(0)==-1 || (E.at(x).pop > E.at(S.at(0)).pop)){
-            swap(S.at(1), S.at(0));
-
-            S.at(0) = x;
-            cout << "Adding " << E.at(x).hashtag << " to highest position. ";
-            cout << "Current pop count = " << E.at(x).pop << endl;
-        }
-        else if(S.at(1)== -1 || (E.at(x).pop > E.at(S.at(1)).pop)){
-            swap(S.at(2), S.at(1));
-            S.at(1) = x;
-            cout << "Adding " << E.at(x).hashtag << " to 2nd highest position. ";
-            cout << "Current pop count = " << E.at(x).pop << endl;
-        
-        }
-        else if(S.at(2)== -1 || (E.at(x).pop > E.at(S.at(2)).pop)){
+        if(S.at(2) == -1 || E.at(x).pop > E.at(S[2]).pop){
             S.at(2) = x;
-            cout << "Adding " << E.at(x).hashtag << " to third position. ";
-            cout << "Current pop count = " << E.at(x).pop << endl;
-        
         }
+        if((S.at(1) == -1 || E.at(S.at(2)).pop > E.at(S.at(1)).pop )){
+            swap(S.at(2), S.at(1));
+        }
+        if((S.at(0) == -1 || E.at(S.at(1)).pop > E.at(S.at(0)).pop )){
+            swap(S.at(1), S.at(0));
+        }
+        // if(S.at(0)==-1 || (E.at(x).pop > E.at(S.at(0)).pop)){
+        //     swap(S.at(1), S.at(0));
+        //     S.at(0) = x;
+        //     cout << "Adding " << E.at(x).hashtag << " to highest position. ";
+        //     cout << "Current pop count = " << E.at(x).pop << endl;
+        // }
+        // else if(S.at(1)== -1 || (E.at(x).pop > E.at(S.at(1)).pop)){
+        //     swap(S.at(2), S.at(1));
+        //     S.at(1) = x;
+        //     cout << "Adding " << E.at(x).hashtag << " to 2nd highest position. ";
+        //     cout << "Current pop count = " << E.at(x).pop << endl;
+        
+        // }
+        // else if(S.at(2)== -1 || (E.at(x).pop > E.at(S.at(2)).pop)){
+        //     S.at(2) = x;
+        //     cout << "Adding " << E.at(x).hashtag << " to third position. ";
+        //     cout << "Current pop count = " << E.at(x).pop << endl;
+        
+        // }
     }
 }
 
@@ -117,7 +125,6 @@ string Trendtracker :: top_trend(){
 // Must run in O(1) time.
 void Trendtracker :: top_three_trends(vector<string> &T){
     T.clear();
-    cout << "entering top three" << endl;
     for(int i=0; i<3; i++){
         if(S.at(i) != -1){
             T.push_back(E.at(S.at(i)).hashtag);
