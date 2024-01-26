@@ -59,9 +59,10 @@ int Trendtracker :: size(){
 void Trendtracker :: tweeted(string ht){
     int x = search(ht);
     if(x != -1){
-        //     cout << "Current pop count = " << E.at(x).pop << endl;)){
         E.at(x).pop += 1;
-        if(S.at(2) == -1 || E.at(x).pop > E.at(S[2]).pop){
+        bool not_equal = (x != S[0] && x != S[1] && x != S[2]);
+        if(S.at(2) == -1 || (E[x].pop > E[S[2]].pop && not_equal) )
+        {
             S.at(2) = x;
         }
         if((S.at(1) == -1 || E.at(S.at(2)).pop > E.at(S.at(1)).pop )){
@@ -70,25 +71,6 @@ void Trendtracker :: tweeted(string ht){
         if((S.at(0) == -1 || E.at(S.at(1)).pop > E.at(S.at(0)).pop )){
             swap(S.at(1), S.at(0));
         }
-        // if(S.at(0)==-1 || (E.at(x).pop > E.at(S.at(0)).pop)){
-        //     swap(S.at(1), S.at(0));
-        //     S.at(0) = x;
-        //     cout << "Adding " << E.at(x).hashtag << " to highest position. ";
-        //     cout << "Current pop count = " << E.at(x).pop << endl;
-        // }
-        // else if(S.at(1)== -1 || (E.at(x).pop > E.at(S.at(1)).pop)){
-        //     swap(S.at(2), S.at(1));
-        //     S.at(1) = x;
-        //     cout << "Adding " << E.at(x).hashtag << " to 2nd highest position. ";
-        //     cout << "Current pop count = " << E.at(x).pop << endl;
-        
-        // }
-        // else if(S.at(2)== -1 || (E.at(x).pop > E.at(S.at(2)).pop)){
-        //     S.at(2) = x;
-        //     cout << "Adding " << E.at(x).hashtag << " to third position. ";
-        //     cout << "Current pop count = " << E.at(x).pop << endl;
-        
-        // }
     }
 }
 
