@@ -7,8 +7,6 @@ using namespace std;
 #include <vector>
 #include <string>
 
-#include <iostream>
-
 
 // Creates a Trendtracker containing hashtags
 // found in the provided file.

@@ -222,7 +222,7 @@ cout << "line 140" << endl;
 	while (getline(f, line))
 		T4.tweeted(line);
 	f.close();
-
+	cout << T4.popularity("#programming") << endl;
 	test(T4.popularity("#programming") == 10);
 	test(T4.popularity("#computer") == 9);
 	test(T4.popularity("#is") == 8);
