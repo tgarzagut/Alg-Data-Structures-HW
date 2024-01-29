@@ -40,6 +40,7 @@ Trendtracker :: Trendtracker(string filename){
 	}
     inFS.close();
 
+    S.clear();
     for(int i=0; i<3; i++){
         S.push_back(-1);
     }
@@ -59,17 +60,19 @@ int Trendtracker :: size(){
 void Trendtracker :: tweeted(string ht){
     int x = search(ht);
     if(x != -1){
-        E.at(x).pop += 1;
+        E[x].pop += 1;
         bool not_equal = (x != S[0] && x != S[1] && x != S[2]);
-        if(S.at(2) == -1 || (E[x].pop > E[S[2]].pop && not_equal) )
+        if(S[2] == -1 || (E[x].pop > E[S[2]].pop && not_equal) )
         {
-            S.at(2) = x;
+            if(x != S[1] && S[0] != x){
+                S[2] = x;
+            }
         }
-        if((S.at(1) == -1 || E.at(S.at(2)).pop > E.at(S.at(1)).pop )){
-            swap(S.at(2), S.at(1));
+        if((S[1] == -1 || E[S[2]].pop > E[S[1]].pop )){
+            swap(S[2], S[1]);
         }
-        if((S.at(0) == -1 || E.at(S.at(1)).pop > E.at(S.at(0)).pop )){
-            swap(S.at(1), S.at(0));
+        if((S[0] == -1 || E[S[1]].pop > E[S[0]].pop )){
+            swap(S[1], S[0]);
         }
     }
 }
