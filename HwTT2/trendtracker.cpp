@@ -31,18 +31,31 @@ Trendtracker :: Trendtracker(string filename){
     }
 
 	string hash;
-	Entry current;
+	//Entry current;
 
 	while(getline(inFS, hash)){
+        Entry current;
 		current.hashtag = hash;
 		current.pop = 0;
 		E.push_back(current);
 	}
     inFS.close();
 
-    S.clear();
-    for(int i=0; i<3; i++){
-        S.push_back(-1);
+
+    if(E.size() == 0){
+        return;
+    }
+    if(E.size() == 1){
+        S.push_back(0);
+    }
+    if(E.size() == 2){
+        S.push_back(0);
+        S.push_back(1);
+    }
+    if(E.size() >= 3){
+        for(int i=0; i<3; i++){
+            S.push_back(i);
+        }
     }
 }
 
@@ -61,18 +74,29 @@ void Trendtracker :: tweeted(string ht){
     int x = search(ht);
     if(x != -1){
         E[x].pop += 1;
-        bool not_equal = (x != S[0] && x != S[1] && x != S[2]);
-        if(S[2] == -1 || (E[x].pop > E[S[2]].pop && not_equal) )
-        {
-            if(x != S[1] && S[0] != x){
-                S[2] = x;
-            }
+    //if its there in the vector
+        for(int i=0; i<S.size(); i++){
+            if(x == S[i]){
+                for(int j = i; j>0; j--){
+                    if(E[S[j]].pop > E[S[j-1]].pop){
+                        swap(S[i], S[i - 1]);
+                    }
+                }
+                return;
+            } 
         }
-        if((S[1] == -1 || E[S[2]].pop > E[S[1]].pop )){
-            swap(S[2], S[1]);
+    //if not previously in top three
+        if(E[x].pop > E[S[0]].pop){
+            S[2] = S[1];
+            S[1] = S[0];
+            S[0] = x;
         }
-        if((S[0] == -1 || E[S[1]].pop > E[S[0]].pop )){
-            swap(S[1], S[0]);
+        else if(E[x].pop > E[S[1]].pop){
+            S[2] = S[1];
+            S[1] = x;
+        }
+        else if(E[x].pop > E[S[2]].pop){
+            S[2] = x;
         }
     }
 }
@@ -85,7 +109,7 @@ int Trendtracker :: popularity(string name){
 	//call search
     int x = search(name);
 	if(x != -1){
-        return E.at(x).pop;
+        return E[x].pop;
     }
     return -1;
 }
@@ -95,8 +119,8 @@ int Trendtracker :: popularity(string name){
 //
 // Must run in O(1) time.
 string Trendtracker :: top_trend(){
-	if(E.size()> 0){
-		return  E.at(S.at(0)).hashtag;
+	if(S.size() > 0){
+		return E[S[0]].hashtag;
 	}
     return "";
 }
@@ -110,13 +134,10 @@ string Trendtracker :: top_trend(){
 // Must run in O(1) time.
 void Trendtracker :: top_three_trends(vector<string> &T){
     T.clear();
-    for(int i=0; i<3; i++){
-        if(S.at(i) != -1){
-            T.push_back(E.at(S.at(i)).hashtag);
-        }
-        else{
-            T.push_back("");
-        }
+
+        for(int i = 0; i<S.size(); i++){
+            T.push_back(E[S[i]].hashtag);
+
     }
 }
 
@@ -125,10 +146,10 @@ int Trendtracker:: search(string ht){
     int right = E.size() - 1;
     while (left <= right) {
         int mid = left + (right - left) / 2;
-        if (E.at(mid).hashtag == ht) {
+        if (E[mid].hashtag == ht) {
             return mid;
         }
-        else if (E.at(mid).hashtag < ht) {
+        else if (E[mid].hashtag < ht) {
             left = mid + 1;
         }
         else {

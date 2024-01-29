@@ -121,6 +121,7 @@ cout << "line 119" << endl;
 
 	T3.tweeted("#programming");
 	cout << "line 121" << endl;
+	cout << R[0] << " " << T3.top_trend() << endl;
 	test(T3.top_trend() == "#programming");
 	cout << "line 123" << endl;
 	T3.top_three_trends(R);
