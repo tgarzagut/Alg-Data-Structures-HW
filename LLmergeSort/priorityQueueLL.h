@@ -7,21 +7,31 @@ private:
 	{
 	public:
 		//put what you need here..
-	}
+		T data;
+		//int priority;
+		
+
+		node(T d){
+			data = d;
+			next = nulptr;
+		}
+	};
 
 	//add what you wish here
-
+		node* next;
 public:
 
-	priorityQueueLL()
-	{}
+	priorityQueueLL() {
+
+	}
 
 	~priorityQueueLL()
 	{}
 
 	//return true if empty, false if not
-	bool empty()
-	{}
+	bool empty() {
+		
+	}
 
 	//add item
 	void insert(T x)
