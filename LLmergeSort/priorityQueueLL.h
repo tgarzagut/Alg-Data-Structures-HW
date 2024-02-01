@@ -8,6 +8,7 @@ private:
 	public:
 		//put what you need here..
 		T data;
+		node* next;
 		//int priority;
 		
 
@@ -18,11 +19,12 @@ private:
 	};
 
 	//add what you wish here
-		node* next;
+		node* top;
+		node* bottom;	
 public:
 
 	priorityQueueLL() {
-
+		top = bottom = nullptr;
 	}
 
 	~priorityQueueLL()
@@ -30,15 +32,26 @@ public:
 
 	//return true if empty, false if not
 	bool empty() {
-		
+		if (top==nullptrs){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 	//add item
-	void insert(T x)
-	{}
+	void insert(T x) {
+
+	}
 
 	//remove and return smallest item
-	T extractMin()
-	{}
+	T extractMin() {
+		node* curr = top;
+		int min = curr->data;
+		while curr != nullptr {
+			
+		}
+	}
 
 };
