@@ -9,26 +9,28 @@ private:
 		//put what you need here..
 		T data;
 		node* next;
+		node* back;
 		//int priority;
 		
 
 		node(T d){
 			data = d;
-			next = nulptr;
+			next = nullptr;
+			back = nullptr
 		}
 	};
 
 	//add what you wish here
 		node* top;
-		node* bottom;	
 public:
 
 	priorityQueueLL() {
-		top = bottom = nullptr;
+		top = nullptr;
 	}
 
-	~priorityQueueLL()
-	{}
+	~priorityQueueLL() {
+		
+	}
 
 	//return true if empty, false if not
 	bool empty() {
@@ -42,16 +44,36 @@ public:
 
 	//add item
 	void insert(T x) {
-
+		node* add = new node();
+		add->data = x;
+		add->next = nullptr;
+		if(top == nullptr){
+			top = add;
+			add->back = nullptr;
+		}
+		else{
+			add->next = top;
+			top->back = add;
+			top = add;
+		}
 	}
 
 	//remove and return smallest item
 	T extractMin() {
 		node* curr = top;
-		int min = curr->data;
+		node* min = top;
+		node* temp = top;
 		while curr != nullptr {
-			
+			if (curr->data < min->data){
+				min = curr->data;
+			}
+			curr = curr->next;
 		}
+		if(min->next != nullptr){
+			temp->next = min->next
+		}
+		delete temp;
+		return min;
 	}
 
 };
