@@ -154,10 +154,23 @@ public:
     }
 
     void writeToFile(string filename){
-        ostream outFS;
-        outFS.open(filename);
+        cout << "writing to file" << endl;
         
+        ofstream outFS;
+        outFS.open(filename);
 
+        if(!outFS.is_open()){
+            cout << "Error: File not open." << endl;
+            return;
+        }
+
+        node* curr = top;
+        while(curr != nullptr){
+            outFS << curr->data << endl;
+            curr = curr->next;
+        }
+
+        outFS.close();
     }
 
 
