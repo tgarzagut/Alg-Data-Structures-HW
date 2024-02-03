@@ -117,7 +117,7 @@ public:
                     delete rem;
                 }
                 else{
-                    delete left.top;
+                    left.top = nullptr;
                 }
             }
             else if(right.top->data <= left.top->data){
@@ -128,7 +128,7 @@ public:
                     delete rem;
                 }
                 else{
-                    delete right.top;
+                    right.top = nullptr;
                 }
             }
         }
