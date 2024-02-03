@@ -1,7 +1,7 @@
 //Linked lists and merge sort:  Implement the methods “split”, “merge”, “slowSort”, and “mergeSort” as described in the following test file.   slowSort can be bubbleSort or selectionSort (or some other sort that is not mergeSort), and mergeSort should use the split and merge methods to implement a O(n log n) Merge Sort.  Apply both sorting algorithms to sort whale.txt and write the output to slowSortedWhale.txt and mergeSortedWhale.txt respectively.  Time each sort with timing code and include the running times with your submission.
 
 #include <iostream>
-#include <ifstream>
+#include <fstream>
 
 using namespace std;
 
@@ -60,26 +60,26 @@ public:
     }
 
     void split(linkedList<T>& left, linkedList<T>& right){
-        int count = 0;
-        node* curr = top;
-        while(curr != nullptr){
-            curr = curr->next;
-            count++;
-        }
-        curr = top;
-        for(int i = 0; i<count; i++){
-            if(i < count/2){
-                left.push_back(curr->data);
+     if(top == nullptr)
+        return;
+//time2 goes two nodes at a time and time1 one
+    node* time2 = top;
+    node* time1 = top;
 
-            }
-            else{
-                right.push_back(curr->data);
-            }
-            node* rem = curr;
-            curr= curr->next;
-            delete rem;
-        }
-        top = bottom = nullptr;
+    while(time2 != nullptr && time2->next != nullptr){
+        time2 = time2->next->next;
+        time1 = time1->next;
+    }
+
+    if(time1->back != nullptr)
+        time1->back->next = nullptr;
+
+    left.top = top;
+    left.bottom = time1->back;
+    right.top = time1;
+    right.bottom = bottom;
+
+    top = bottom = nullptr;
     }
 
     void slowSort(){
@@ -99,44 +99,66 @@ public:
     }
 
     void merge(linkedList<T>& left, linkedList<T>& right){
-        node* rem;
-        while(left.top != nullptr && right.top != nullptr){
+        top = bottom = nullptr;
 
-            if(left.top != nullptr && right.top == nullptr){
+        while(left.top != nullptr && right.top != nullptr){
+            if(left.top->data < right.top->data){
                 push_back(left.top->data);
-                delete left.top;
-            }
-            else if(right.top != nullptr && left.top == nullptr){
+                left.top = left.top->next;
+            } else {
                 push_back(right.top->data);
-                delete right.top;
+                right.top = right.top->next;
             }
-            else if(left.top->data <= right.top->data){
-                push_back(left.top->data);
-                if(left.top->next != nullptr){
-                    rem = left.top;
-                    left.top = left.top->next;
-                    delete rem;
-                }
-                else{
-                    left.top = nullptr;
-                }
-            }
-            else if(right.top->data <= left.top->data){
-                push_back(right.top->data);
-                if(right.top->next != nullptr){
-                    rem = right.top;
-                    right.top = right.top->next;
-                    delete rem;
-                }
-                else{
-                    right.top = nullptr;
-                }
-            }
+        }
+    //After one is empty, just insert what is left
+        while(left.top != nullptr){
+            push_back(left.top->data);
+            left.top = left.top->next;
+        }
+
+        while(right.top != nullptr){
+            push_back(right.top->data);
+            right.top = right.top->next;
         }
     }
 
     void loadFromFile(string filename){
-        
+        ifstream inFS;
+        inFS.open(filename);
+
+        if(!inFS.is_open()){
+            cout << "Error: File not open." <<endl;
+            return;
+        }
+
+        string word;
+        while(inFS >> word){
+            push_back(word);
+        }
+
+        inFS.close();
     }
+
+    void mergeSort(){
+        if (top == nullptr || top->next == nullptr){
+            return;
+        }
+        linkedList<string> left;
+        linkedList<string> right;
+        split(left, right);
+
+        left.mergeSort();
+        right.mergeSort();
+
+        merge(left, right);
+    }
+
+    void writeToFile(string filename){
+        ostream outFS;
+        outFS.open(filename);
+        
+
+    }
+
 
 };
