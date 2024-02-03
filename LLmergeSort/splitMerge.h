@@ -1,6 +1,7 @@
 //Linked lists and merge sort:  Implement the methods “split”, “merge”, “slowSort”, and “mergeSort” as described in the following test file.   slowSort can be bubbleSort or selectionSort (or some other sort that is not mergeSort), and mergeSort should use the split and merge methods to implement a O(n log n) Merge Sort.  Apply both sorting algorithms to sort whale.txt and write the output to slowSortedWhale.txt and mergeSortedWhale.txt respectively.  Time each sort with timing code and include the running times with your submission.
 
 #include <iostream>
+#include <ifstream>
 
 using namespace std;
 
@@ -132,6 +133,10 @@ public:
                 }
             }
         }
+    }
+
+    void loadFromFile(string filename){
+        
     }
 
 };
