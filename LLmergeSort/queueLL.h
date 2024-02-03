@@ -1,4 +1,5 @@
 
+template <class T>
 class queueLL
 {
 private:
@@ -7,11 +8,12 @@ private:
 	{
 	public:
 		//put what you need in here
-		int data;
+		T data;
 		node* next;
-
+		node* back;
 		node(){
 			next = nullptr;
+			back = nullptr;
 		}
 	};
 	node* top;
@@ -28,26 +30,31 @@ public:
 	}
 
 	//add item to back of queue
-	void enqueue(int x) {
+	void enqueue(T x) {
 		node* temp = new node();
 		temp->data = x;
 		temp->next = nullptr;
 		if(top == nullptr){
 			top = temp;
+			temp->back = nullptr;
 			bottom = temp;
 		}
 		else{
 			bottom->next = temp;
+			temp->back = bottom;
 			bottom = temp;
 		}
 	}
 
 	//remove and return first item from queue
-	int dequeue() {
-		node* temp;
-		temp = top;
-		int value = top->data;
+	T dequeue() {
+		node* temp = top;
+		T value = top->data;
 		top = top->next;
+		if (top != nullptr){
+			top->back = nullptr;	
+		}
+		
 		delete temp;
 		return value;
 	}
@@ -58,6 +65,34 @@ public:
 		}
 		else{
 			return false;
+		}
+	}
+
+	//Eliminate every 10th item from list
+	//https://en.wikipedia.org/wiki/Decimation_(punishment)
+	void decimate(){
+		node* wcurr = top;
+		while (wcurr != nullptr){
+			for(int i = 1; i < 10; i++){
+				if(wcurr->next != nullptr){
+					wcurr = wcurr->next;	
+				}
+				else{
+					return;
+				}
+			}
+			node* n = wcurr;
+			wcurr = wcurr->next;
+			if(n->next != nullptr){
+				n->back->next = n->next;
+				n->next->back = n->back;
+			}
+			else{
+				bottom = n->back;
+				return;
+			}
+			
+			delete n;
 		}
 	}
 
