@@ -10,7 +10,6 @@ private:
 		node* next;
 
 		node(){
-			data;
 			next = nullptr;
 		}
 	};

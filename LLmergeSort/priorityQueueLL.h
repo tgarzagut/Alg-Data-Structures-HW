@@ -13,10 +13,10 @@ private:
 		//int priority;
 		
 
-		node(T d){
-			data = d;
+		node(){
+			//data = d;
 			next = nullptr;
-			back = nullptr
+			back = nullptr;
 		}
 	};
 
@@ -34,7 +34,7 @@ public:
 
 	//return true if empty, false if not
 	bool empty() {
-		if (top==nullptrs){
+		if (top==nullptr){
 			return true;
 		}
 		else{
@@ -46,34 +46,52 @@ public:
 	void insert(T x) {
 		node* add = new node();
 		add->data = x;
-		add->next = nullptr;
-		if(top == nullptr){
+		if(top == nullptr || x > top->data){
+			if(top != nullptr){
+				top->back = add;
+				add->next = top;
+				top = add;
+			}
+			else{
 			top = add;
 			add->back = nullptr;
+			add->next = nullptr;	
+			}
+			
 		}
 		else{
-			add->next = top;
-			top->back = add;
-			top = add;
+			node* curr = top;
+			while(curr->next != nullptr && x < curr->next->data){
+				curr = curr->next;
+			}
+			add->next = curr->next;
+			if(curr->next != nullptr){
+				curr->next->back = add;	
+			}
+			add->back = curr;
+			curr->next = add;
 		}
 	}
 
 	//remove and return smallest item
 	T extractMin() {
 		node* curr = top;
-		node* min = top;
-		node* temp = top;
-		while curr != nullptr {
-			if (curr->data < min->data){
-				min = curr->data;
-			}
+		node* rem = top;
+		T val = top->data;
+		if(top->next == nullptr){
+			rem = top;
+			top = nullptr;
+			delete rem;
+			return val;
+		}
+		while(curr->next != nullptr){
 			curr = curr->next;
 		}
-		if(min->next != nullptr){
-			temp->next = min->next
-		}
-		delete temp;
-		return min;
+		curr->back->next = nullptr;
+		rem = curr;
+		val = curr->data;
+		delete rem;
+		return val;
 	}
 
 };
