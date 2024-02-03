@@ -55,7 +55,7 @@ int main()
 
 	//////////Test code for queue ///////////
 
-	queueLL Q;
+	queueLL<int> Q;
 
 	Q.enqueue(1);
 	Q.enqueue(2);
@@ -84,7 +84,9 @@ int main()
 	//insert a bunch of random numbers
 	for(int i=0; i<SIZE; i++)
 	{
-		pQueue.insert( rand() );
+		int x = rand();
+		pQueue.insert( x);
+		cout << "adding: " << x << endl;
 	}
 
 	//pull them back out..
@@ -110,11 +112,11 @@ int main()
 		cout << pqs.extractMin() << endl;
 	}
 
-	///////////////////////////////////////////
-	//1) Template your queue class
-	//2) Add a decimate method to your queue class
-	// Note: You will need to modify the earlier test code
-	//       after you template the class.
+	// ///////////////////////////////////////////
+	// //1) Template your queue class
+	// //2) Add a decimate method to your queue class
+	// // Note: You will need to modify the earlier test code
+	// //       after you template the class.
 	queueLL<int> qx;
 
 	for(int i=1; i<=100; i++)
