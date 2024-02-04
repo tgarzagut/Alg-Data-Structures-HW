@@ -89,6 +89,8 @@ public:
 			}
 			else{
 				bottom = n->back;
+				bottom->next = nullptr;
+				delete n;
 				return;
 			}
 			
