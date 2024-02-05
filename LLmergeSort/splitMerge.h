@@ -9,7 +9,6 @@ template <class T>
 class linkedList
 {
 private:
-	//put what you need here...
 	class node
 	{
 	public:
@@ -17,7 +16,7 @@ private:
 		T data;
 		node* next;
 		node* back;
-
+        //O(1)
 		node(){
 			next = nullptr;
 			back = nullptr;
@@ -27,11 +26,14 @@ private:
 	node* bottom;
 
 public:
+
+    //O(1)
 	linkedList() {
 		top = nullptr;
 		bottom = nullptr;
 	}
 
+    //O(1)
     void push_back(T f){
         //adds a given item to the back of the list
         node* temp = new node();
@@ -50,6 +52,7 @@ public:
 
     }
 
+    //O(n)
     void print(){
         node* curr = top;
         while(curr != nullptr){
@@ -59,6 +62,7 @@ public:
         cout << endl;
     }
 
+    //O(n)
     void split(linkedList<T>& left, linkedList<T>& right){
      if(top == nullptr)
         return;
@@ -82,6 +86,7 @@ public:
     top = bottom = nullptr;
     }
 
+    //O(n^2)
     void slowSort(){
     //bubble sort O(n^2)
         bool swapped = true;
@@ -98,6 +103,7 @@ public:
         }
     }
 
+    //O(n + m) 
     void merge(linkedList<T>& left, linkedList<T>& right){
         top = bottom = nullptr;
 
@@ -122,6 +128,7 @@ public:
         }
     }
 
+    //O(n)
     void loadFromFile(string filename){
         ifstream inFS;
         inFS.open(filename);
@@ -139,6 +146,7 @@ public:
         inFS.close();
     }
 
+    //O(nlogn)
     void mergeSort(){
         if (top == nullptr || top->next == nullptr){
             return;
@@ -153,8 +161,8 @@ public:
         merge(left, right);
     }
 
+    //O(n)
     void writeToFile(string filename){
-        cout << "writing to file" << endl;
         
         ofstream outFS;
         outFS.open(filename);
