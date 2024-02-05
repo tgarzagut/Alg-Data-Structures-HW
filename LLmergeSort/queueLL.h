@@ -26,7 +26,13 @@ public:
 	}
 
 	~queueLL() {
-
+		node *temp;
+        while (top != nullptr)
+        {
+            temp = top;
+            top = top->next;
+            delete temp;
+        }
 	}
 
 	//add item to back of queue

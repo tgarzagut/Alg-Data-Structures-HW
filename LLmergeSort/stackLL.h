@@ -9,6 +9,7 @@ private:
 		int data;
 		node* next;
 
+	//O(1)
 		node(){
 			next = nullptr;
 		}
@@ -24,7 +25,14 @@ public:
 
 	//Take care of memory leaks...
 	~stackLL(){
-
+	{
+        node *temp;
+        while (top != nullptr)
+        {
+            temp = top;
+            top = top->next;
+            delete temp;
+        }
 	}
 
 	//return true if empty, false if not
