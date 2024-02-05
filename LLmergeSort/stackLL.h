@@ -18,12 +18,13 @@ private:
 	node * top;
 
 public:
-
+	//O(1)
 	stackLL() {
 		top = nullptr;
 	}
 
 	//Take care of memory leaks...
+	//O(n)
 	~stackLL()
 	{
         node *temp;
@@ -36,6 +37,7 @@ public:
 	}
 
 	//return true if empty, false if not
+	//O(1)
 	bool empty(){
 		if(top == nullptr){
 			return true;
@@ -44,7 +46,9 @@ public:
 			return false;
 		}
 	}
+
 	//add item to top of stack
+	//O(1)
 	void push(int x) {
 		node* temp = new node();
 		temp->data = x;
@@ -53,6 +57,7 @@ public:
 	}
 
 	//remove and return top item from stack
+	//O(1)
 	int pop() {
 		node* temp = top;
 		top = top->next;
@@ -64,6 +69,7 @@ public:
 	//add item x to stack, but insert it
 	//right after the current ith item from the top
 	//(and before the i+1 item).
+	//O(i)
 	void insertAt(int x, int i) {
 		node* curr = top;
 		node* temp = new node();
