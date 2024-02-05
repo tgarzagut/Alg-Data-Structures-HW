@@ -5,7 +5,6 @@ private:
 	class node
 	{
 	public:
-		//put what you need in here
 		int data;
 		node* next;
 
@@ -23,7 +22,6 @@ public:
 		top = nullptr;
 	}
 
-	//Take care of memory leaks...
 	//O(n)
 	~stackLL()
 	{
@@ -36,7 +34,6 @@ public:
         }
 	}
 
-	//return true if empty, false if not
 	//O(1)
 	bool empty(){
 		if(top == nullptr){
@@ -47,7 +44,6 @@ public:
 		}
 	}
 
-	//add item to top of stack
 	//O(1)
 	void push(int x) {
 		node* temp = new node();
@@ -56,7 +52,6 @@ public:
 		top = temp;
 	}
 
-	//remove and return top item from stack
 	//O(1)
 	int pop() {
 		node* temp = top;
@@ -66,9 +61,6 @@ public:
 		return popped;
 	}
 
-	//add item x to stack, but insert it
-	//right after the current ith item from the top
-	//(and before the i+1 item).
 	//O(i)
 	void insertAt(int x, int i) {
 		node* curr = top;
