@@ -24,7 +24,7 @@ public:
 	}
 
 	//Take care of memory leaks...
-	~stackLL(){
+	~stackLL()
 	{
         node *temp;
         while (top != nullptr)
@@ -36,7 +36,7 @@ public:
 	}
 
 	//return true if empty, false if not
-	bool empty() {
+	bool empty(){
 		if(top == nullptr){
 			return true;
 		}
