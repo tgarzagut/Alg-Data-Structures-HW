@@ -5,10 +5,10 @@ private:
 	class node
 	{
 	public:
-		//put what you need in here
 		int data;
 		node* next;
 
+	//O(1)
 		node(){
 			next = nullptr;
 		}
@@ -17,18 +17,25 @@ private:
 	node * top;
 
 public:
-
+	//O(1)
 	stackLL() {
 		top = nullptr;
 	}
 
-	//Take care of memory leaks...
-	~stackLL(){
-
+	//O(n)
+	~stackLL()
+	{
+        node *temp;
+        while (top != nullptr)
+        {
+            temp = top;
+            top = top->next;
+            delete temp;
+        }
 	}
 
-	//return true if empty, false if not
-	bool empty() {
+	//O(1)
+	bool empty(){
 		if(top == nullptr){
 			return true;
 		}
@@ -36,7 +43,8 @@ public:
 			return false;
 		}
 	}
-	//add item to top of stack
+
+	//O(1)
 	void push(int x) {
 		node* temp = new node();
 		temp->data = x;
@@ -44,7 +52,7 @@ public:
 		top = temp;
 	}
 
-	//remove and return top item from stack
+	//O(1)
 	int pop() {
 		node* temp = top;
 		top = top->next;
@@ -53,9 +61,7 @@ public:
 		return popped;
 	}
 
-	//add item x to stack, but insert it
-	//right after the current ith item from the top
-	//(and before the i+1 item).
+	//O(i)
 	void insertAt(int x, int i) {
 		node* curr = top;
 		node* temp = new node();

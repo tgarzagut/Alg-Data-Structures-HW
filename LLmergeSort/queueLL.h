@@ -3,14 +3,13 @@ template <class T>
 class queueLL
 {
 private:
-	//put what you need here...
 	class node
 	{
 	public:
-		//put what you need in here
 		T data;
 		node* next;
 		node* back;
+		//O(1)
 		node(){
 			next = nullptr;
 			back = nullptr;
@@ -20,16 +19,23 @@ private:
 	node* bottom;
 
 public:
+	//O(1)
 	queueLL() {
 		top = nullptr;
 		bottom = nullptr;
 	}
-
+	//O(n)
 	~queueLL() {
-
+		node *temp;
+        while (top != nullptr)
+        {
+            temp = top;
+            top = top->next;
+            delete temp;
+        }
 	}
 
-	//add item to back of queue
+	//O(1)
 	void enqueue(T x) {
 		node* temp = new node();
 		temp->data = x;
@@ -46,7 +52,7 @@ public:
 		}
 	}
 
-	//remove and return first item from queue
+	//O(1)
 	T dequeue() {
 		node* temp = top;
 		T value = top->data;
@@ -59,6 +65,7 @@ public:
 		return value;
 	}
 
+	//O(1)
 	bool empty() {
 		if(top==nullptr){
 			return true;
@@ -67,9 +74,7 @@ public:
 			return false;
 		}
 	}
-
-	//Eliminate every 10th item from list
-	//https://en.wikipedia.org/wiki/Decimation_(punishment)
+	//O(n)
 	void decimate(){
 		node* wcurr = top;
 		while (wcurr != nullptr){
@@ -97,8 +102,5 @@ public:
 			delete n;
 		}
 	}
-
-	//For the final part of the test program, template this class
-	//and add a decimate method.
 
 };

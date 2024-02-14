@@ -6,33 +6,36 @@ private:
 	class node
 	{
 	public:
-		//put what you need here..
 		T data;
 		node* next;
 		node* back;
-		//int priority;
 		
-
+	//O(1)
 		node(){
-			//data = d;
 			next = nullptr;
 			back = nullptr;
 		}
 	};
 
-	//add what you wish here
 		node* top;
 public:
-
+	//O(1)
 	priorityQueueLL() {
 		top = nullptr;
 	}
 
+	//O(n)
 	~priorityQueueLL() {
-		
+		node *temp;
+        while (top != nullptr)
+        {
+            temp = top;
+            top = top->next;
+            delete temp;
+        }
 	}
 
-	//return true if empty, false if not
+	//O(1)
 	bool empty() {
 		if (top==nullptr){
 			return true;
@@ -42,7 +45,7 @@ public:
 		}
 	}
 
-	//add item
+	//O(n)
 	void insert(T x) {
 		node* add = new node();
 		add->data = x;
@@ -73,7 +76,7 @@ public:
 		}
 	}
 
-	//remove and return smallest item
+	//O(n)
 	T extractMin() {
 		node* curr = top;
 		node* rem = top;
