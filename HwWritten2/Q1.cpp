@@ -1,4 +1,5 @@
 #include <vector>
+#include <iostream>
 
 int fastFind(std::vector<double> &A, double key){
     int middle = A.size()/2;
