@@ -1,6 +1,8 @@
+#include <iostream>
 class trie {
     private:
         class node{
+            public:
             bool marked;
             node* children[256];
 
@@ -16,7 +18,7 @@ class trie {
         trie(){
         root = new node();
         }
-        void insert(string s){
+        void insert(std::string s){
             node* arrow = root;
             for(int i = 0; i < s.size(); i++){
                 if(arrow->children[s[i]] == nullptr){
@@ -28,6 +30,5 @@ class trie {
         }
         void printAll(){
             node* curr = root;
-            std::cout << 
         }
 };

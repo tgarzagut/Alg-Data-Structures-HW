@@ -1,4 +1,4 @@
-#inclujde
+#include "autocompleter.h"
 // Creates a new Autocompleter with an empty dictionary.
 	//
 	// Must run in O(1) time.
@@ -11,6 +11,10 @@
 	//
 	// Must run in O(log(n)) time.
 	void Autocompleter::insert(string x, int freq){
+		Entry newEntry;
+		newEntry.s = x;
+		newEntry.freq = freq;
+		Node* newNode = new Node(newEntry);
 
     }
 

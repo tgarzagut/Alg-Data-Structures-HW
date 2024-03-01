@@ -10,6 +10,7 @@ class Autocompleter
 	// For the mandatory running times below:
 	// n is the number of strings in the dictionary.
 	// Assume that the length of every string is O(1).
+	
 
 public:
 	// Creates a new Autocompleter with an empty dictionary.
