@@ -101,20 +101,21 @@ int main()
 	f.close();
 	test(words.size() == 293147);
 	test(words.height() == 20);
+	cout << "passed words2.txt" << endl;
+	// Test insert() and size()
+	animals.insert("buffalo", 17808542);
+	test(animals.size() == 14);
 
-	// // Test insert() and size()
-	// animals.insert("buffalo", 17808542);
-	// test(animals.size() == 14);
+	animals.insert("deer", 10007644);
+	test(animals.size() == 15);
 
-	// animals.insert("deer", 10007644);
-	// test(animals.size() == 15);
+	animals.insert("horse", 58453720);
+	test(animals.size() == 16);
 
-	// animals.insert("horse", 58453720);
-	// test(animals.size() == 16);
-
-	// animals.insert("bullfrog", 273571);
-	// test(animals.size() == 17);
-	// test(animals.height() == 4);
+	animals.insert("bullfrog", 273571);
+	test(animals.size() == 17);
+	test(animals.height() == 4);
+	cout << "passed animals" << endl;
 
 	// // Test completions()
 	// animals.completions("a", R);
