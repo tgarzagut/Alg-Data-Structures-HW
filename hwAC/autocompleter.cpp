@@ -1,5 +1,4 @@
 #include "autocompleter.h"
-#include <iostream>
 
 // Creates a new Autocompleter with an empty dictionary.
 	//
@@ -17,7 +16,6 @@
 		newEntry.s = x;
 		newEntry.freq = freq;
 		insert_recurse(newEntry, root);
-		std::cout << newEntry.s << " freq: " << newEntry.freq << std::endl;
     }
 
 	// Returns the number of strings in the dictionary
@@ -43,7 +41,7 @@
   		vector<Entry> Placeholder;
   		completions_recurse(x, root, Placeholder);
   		for(int i = 0; i < Placeholder.size(); i++){
-    	T.push_back(Placeholder[i].s);
+    		T.push_back(Placeholder[i].s);
   		}  
 	}
 
@@ -71,17 +69,25 @@
 	// Should run in O(log(n)) time.
 	void Autocompleter::insert_recurse(Entry e, Node* &p){
 		if (p == nullptr) {
-            p = new Node(e);
-        }
-        if (e.s < p->e.s) {
-            insert_recurse(e, p->left);
-        } 
-		else if (e.s > p->e.s) {
-            insert_recurse(e, p->right);
-        }
-		rebalance(p);
-		update_height(p);
+      	p = new Node(e);
+    	}
+  		else {
+			if (e.s < p->e.s) 
+			{
+			insert_recurse(e, p->left);
+			} 
+			else if (e.s > p->e.s) 
+			{
+			insert_recurse(e, p->right);
+			} 
+			else 
+			{
+				return;
+			}
 
+			update_height(p);
+			rebalance(p);
+    	}
     }
 
 	// Rebalances the AVL tree rooted at p.
@@ -90,36 +96,30 @@
 	// the search in reverse search order.
 	// Should run in O(1) time.
 	void Autocompleter::rebalance(Node* &p){
-    if (p == nullptr) {
-        return; // Null check
-    }
-
-    if (height(p->left) - height(p->right) >= 2){//left height is too high
-        if (p->left != nullptr && height(p->left->left) > height(p->left->right)) {
-            right_rotate(p);
-        } 
-        else {
-            if (p->left != nullptr) {
-                left_rotate(p);
-            }
-            if (p->left != nullptr) {
-                right_rotate(p);
-            }
+    if ((height(p->left) - height(p->right)) >= 2) 
+    {
+      if (height(p->left->left) >= height(p->left->right)) 
+      {
+        right_rotate(p);
+      } 
+      else 
+      {
+        left_rotate(p->left);
+        right_rotate(p);
+      }
+      } 
+      else if (height(p->right) - height(p->left) >= 2) 
+      {
+        if (height(p->right->left) <= height(p->right->right)) 
+        {
+          left_rotate(p);
+          } 
+        else 
+        {
+          right_rotate(p->right);
+          left_rotate(p);
         }
-    }
-    else if (height(p->right) - height(p->left) >= 2){
-        if (p->right != nullptr && height(p->right->right) > height(p->right->left)) {
-            left_rotate(p);
-        }
-        else {
-            if (p->right != nullptr) {
-                right_rotate(p);
-            }
-            if (p->right != nullptr) {
-                left_rotate(p);
-            }
-        }   
-    }
+      }
 	}
 
 	// Perform left and right rotations
@@ -138,6 +138,7 @@
 		update_height(A);
 		update_height(B);
 	}
+
 	void Autocompleter::left_rotate(Node* &p){
 		Node* A = p;
 		Node* B = p->right;
