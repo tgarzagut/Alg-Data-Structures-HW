@@ -63,15 +63,15 @@ void Autocompleter::completions_recurse(string x, Node* p, vector<Entry> &C){
 	if(p == nullptr){
 		return;
 	}
-	bool matchesPrefix = true;
+	bool matchesp = true;
 	for (auto i = 0; i < x.length(); i++) {
 		if (i >= p->e.s.length() || p->e.s[i] != x[i]) {
-			matchesPrefix = false;
+			matchesp = false;
 			break;
 		}
 	}
 
-	if (matchesPrefix) {
+	if (matchesp) {
 		C.push_back(p->e);
 		for (int i = C.size() - 1; i > 0; i--) {
 			if (C[i - 1].freq < C[i].freq) {
