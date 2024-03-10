@@ -18,7 +18,17 @@
             Entry newEntry;
             newEntry.s = x;
             newEntry.freq = freq;
+            int idx = arrow->top.size();
+                
+            while (idx > 0 && arrow->top[idx - 1].freq < freq){
+                idx--;
+            }
+            arrow->top.insert(arrow->top.begin() + idx, newEntry);
 
+            while (arrow->top.size() > 3){
+                arrow->top.pop_back();
+            }
+            
             for (int i = 0; i < x.size(); i++){
                 if (arrow->children[(int)x[i]] == nullptr){
                     arrow->children[(int)x[i]] = new Node;
