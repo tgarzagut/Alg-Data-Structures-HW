@@ -65,8 +65,10 @@ int main()
 
 	// Test constructor and size()
 	Autocompleter animals;
+    cout << animals.size() << endl;
 	test(animals.size() == 0);
-
+    cout << 5 << endl;
+    
 	animals.insert("aardvark", 629356);
 	animals.insert("albatross", 553191);
 	animals.insert("alpaca", 852363);
@@ -81,7 +83,7 @@ int main()
 	animals.insert("goatfish", 19984);
 	animals.insert("giraffe", 978584);
 	test(animals.size() == 13);
-
+cout << "line 85" << endl;
 
 	Autocompleter words;
 	test(words.size() == 0);
