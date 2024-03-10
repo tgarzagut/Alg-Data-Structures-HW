@@ -20,24 +20,22 @@
             newEntry.freq = freq;
 
             for (int i = 0; i < x.size(); i++){
-                if (arrow->children[(int)x[i]] == nullptr)
+                if (arrow->children[(int)x[i]] == nullptr){
                     arrow->children[(int)x[i]] = new Node;
-                if(arrow->marked == true){
-                    if (arrow->top.empty()){
-                        arrow->top.push_back(newEntry);
-                    }
-                    else{
-                        int ts = arrow->top.size();
-                        arrow->top.push_back(newEntry);
-                        int j = ts - 1;
-                        for(int i = ts-2; i >=0; i++){
-                            if(arrow->top[i].freq > newEntry.freq){
-                                swap(arrow->top[i], arrow->top[j]);
-                                j--;
-                            }
-                        }
-                    }
+                }
                 arrow = arrow->children[(int)x[i]];
+
+                int idx = arrow->top.size();
+                
+                while (idx > 0 && arrow->top[idx - 1].freq < freq){
+                    idx--;
+                }
+                
+                arrow->top.insert(arrow->top.begin() + idx, newEntry);
+
+                while (arrow->top.size() > 3){
+                    arrow->top.pop_back();
+                }
             }
 
             if (arrow->marked != true){
@@ -60,8 +58,17 @@
 		// 
 		// Must run in O(1) time.
 		void Autocompleter::completions(string x, vector<string> &T){
-            
-            for(int i = 0; i < 256; i++){
-                
+            T.clear();
+            Node* arrow = root;
+            for (int i = 0; i < x.size(); i++){
+                if(arrow->children[(int)x[i]] == nullptr){
+                    return;
+                }
+                arrow = arrow->children[(int)x[i]];
             }
+
+            for(int i = 0; i < arrow->top.size(); i++){
+                T.push_back(arrow->top[i].s);
+            }
+            
         }

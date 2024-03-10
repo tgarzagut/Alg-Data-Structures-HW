@@ -68,7 +68,7 @@ int main()
     cout << animals.size() << endl;
 	test(animals.size() == 0);
     cout << 5 << endl;
-    
+
 	animals.insert("aardvark", 629356);
 	animals.insert("albatross", 553191);
 	animals.insert("alpaca", 852363);
@@ -112,7 +112,7 @@ cout << "line 85" << endl;
 
 	animals.insert("bullfrog", 273571);
 	test(animals.size() == 17);
-
+    std::cout << "uhh" << std::endl;
 
 	// Test insert() and size()
 	for (int i = 0; i < 100000; ++i)
@@ -125,6 +125,10 @@ cout << "line 85" << endl;
 		test(R[2] == "albatross");
 
 		animals.completions("b", R);
+        std::cout << R.size() << std::endl;
+        for(int i = 0; i < R.size(); i++){
+            std::cout << R[i] << std::endl;
+        }
 		test(R.size() == 2);
 		test(R[0] == "buffalo");
 		test(R[1] == "bullfrog");
