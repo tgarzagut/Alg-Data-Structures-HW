@@ -36,7 +36,8 @@ void Autocompleter::insert(string x, int freq){
         }
 
         arrow = arrow->children[(int)x[i]];
-        int idx = arrow->top.size();
+        
+        idx = arrow->top.size();
         
         while (idx > 0 && arrow->top[idx - 1].freq < freq){
             idx--;

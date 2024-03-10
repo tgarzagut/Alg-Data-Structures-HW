@@ -56,7 +56,7 @@ int main()
 	// Enter a string and press Enter - the autocompletions
 	// results from words.txt are printed.
 	// 
-	//interactive_mode();
+	interactive_mode();
 
 
 	// Setup
