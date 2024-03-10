@@ -3,7 +3,7 @@
         // Creates a new Autocompleter with an empty dictionary.
 		//
 		// Must run in O(1) time.
-		Autocompleter::Autocompleter(){
+		Autocompleter::Autocompleter() {
             Node* newNode = new Node();
             root = newNode;
             count = 0;
@@ -30,7 +30,6 @@
                 while (idx > 0 && arrow->top[idx - 1].freq < freq){
                     idx--;
                 }
-                
                 arrow->top.insert(arrow->top.begin() + idx, newEntry);
 
                 while (arrow->top.size() > 3){
@@ -42,6 +41,7 @@
                 count++;
                 arrow->marked = true;
             }
+
         }
 
 		// Returns the number of strings in the dictionary.
