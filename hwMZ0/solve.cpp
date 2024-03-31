@@ -22,7 +22,7 @@ using namespace std;
 //
 // Must run in O(s) time.
 
-//modified vertex.h to include breadcrumb and location of vertex
+//modified vertex.h to include breadcrumb and location identifier of vertex
 class Vertex{
     public:
 
