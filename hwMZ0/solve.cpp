@@ -45,6 +45,10 @@ class mazeSolver{
     void findNeighbors(Vertex* v){
 
     }
+    //run through every index of maze string and if " " then identify neighbors
+    //maybe bool for start so as to identify it.
+    //BFS ? approach
+
 };
 
 void print(string maze){
