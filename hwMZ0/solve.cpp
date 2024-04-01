@@ -1,9 +1,11 @@
 
 #include "solve.h"
-#include <iostream>
-//iostream is used ONLY for visual purposes and is not 
-//used for solving the maze
 
+//checklist
+// [x] vertices
+// [x] edges
+// [x] start
+// [x] end
 using namespace std;
 
 // For the mandatory running time, assume that the time for
@@ -22,20 +24,18 @@ using namespace std;
 //
 // Must run in O(s) time.
 
-//modified vertex.h to include breadcrumb and location identifier of vertex
+//modified vertex.h to include breadcrumb of vertex
 class Vertex{
     public:
 
-    Vertex(int r, int c, int i){
+    Vertex(int r, int c){
         row = r;
         col = c;
-        in = i;
         breadcrumb = nullptr;
     }
     // Corresponding row and column location in maze
     int row;
     int col;
-    int in;
     Vertex* breadcrumb;
     // List of neighboring vertices
     vector<Vertex*> neighs;
@@ -43,7 +43,7 @@ class Vertex{
 
 class mazeSolver{
     void findNeighbors(Vertex* v){
-
+        //code
     }
     //run through every index of maze string and if " " then identify neighbors
     //maybe bool for start so as to identify it.
@@ -51,21 +51,51 @@ class mazeSolver{
 
 };
 
-void print(string maze){
-    for(int i=0; i < maze.size(); i++){
-        cout << maze[i];
-    }
-    cout << endl;
+bool onEdge(int rows, int cols, Vertex* v){
+    return (v->row == 0 || v->col == 0 || v->row == rows - 1 || v->col == cols - 1);
 }
 
 string solve(string maze){
-    cout << "unsolved: " << endl;
-    print(maze);
+    int ver_rows = 0;
+    int ver_cols = 0;
+    vector<Vertex*> vertices;
+    Vertex* start;
+    Vertex* end;
 
-    //code
+    //find width
+    int maze_rows = 0;
+    for(int i = 0;i < maze.size(); i++){
+        maze_rows++;
+        if(maze[i] == '\n'){ 
+          break;
+        }
+    }
+    //find heigth
+    int maze_cols = 0;
+    for(int j=0;j < maze.size(); j++){
+        if(maze[j] == '\n'){
+            maze_cols++;
+            break;
+        }
+    }
 
-    cout << "solved: " << endl;
-    print(maze);
+    for(int i=0;i<maze.size(); i++){
+        if(maze[i] == ' '){
+            Vertex *newVertex = new Vertex(ver_rows,ver_cols);
+            vertices.push_back(newVertex);
+            ver_rows++;
+            if(start == nullptr && maze[i] == ' ' && onEdge(maze_rows, maze_cols, newVertex)){
+                start = newVertex;
+            }
+            else if(end == nullptr && onEdge(maze_rows, maze_cols, newVertex)){
+                end = newVertex;
+            }
+        }
+        else if(maze[i] == '\n'){
+            ver_rows = 0;
+            ver_cols++;
+        }
+    }
 
     return "";
 }
