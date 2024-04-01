@@ -84,7 +84,7 @@ string solve(string maze){
             Vertex *newVertex = new Vertex(ver_rows,ver_cols);
             vertices.push_back(newVertex);
             ver_rows++;
-            if(start == nullptr && maze[i] == ' ' && onEdge(maze_rows, maze_cols, newVertex)){
+            if(start == nullptr && onEdge(maze_rows, maze_cols, newVertex)){
                 start = newVertex;
             }
             else if(end == nullptr && onEdge(maze_rows, maze_cols, newVertex)){
