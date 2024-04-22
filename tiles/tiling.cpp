@@ -1,9 +1,7 @@
-
 #include "tiling.h"
 #include "vertex.h"
 
 using namespace std;
-
 
 // Finds a (shortest according to edge length) augmenting path
 // from s to t in a graph with vertex set V.
@@ -175,11 +173,11 @@ bool has_tiling(string floor){
 	int numVertex = 0;
 	int numRows = 0;
 	int numCols = 0;
+	string dotColor;
 
 	for(int i = 0; i < floor.length(); ++i) {
     	if(floor[i] != '\n') {
 			Vertex* newVertex = new Vertex;
-			string dotColor;
 
 			if(numCols == 0) {
 				graph.push_back(vector<Vertex*>());
@@ -189,7 +187,8 @@ bool has_tiling(string floor){
 
 			if((numRows + numCols) % 2 == 0) {
 				dotColor = "red";
-			} else {
+			} 
+			else {
 				dotColor = "blue";
 			}
 			//if its a # then no color
@@ -251,7 +250,4 @@ bool has_tiling(string floor){
 		return false;
 	}
 }
-
-
-
 
