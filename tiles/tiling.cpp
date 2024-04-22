@@ -208,6 +208,7 @@ bool has_tiling(string floor){
 
 	for(int i = 0; i < graph.size(); i++){
 		for(int j = 0; j < graph[i].size(); j++){
+			//check the red tiles to connect
 			if(tileColors[i][j] == "red"){
 				if(tileColors[i][j - 1] != "none" && j - 1 > -1){
 					graph[i][j]->neighs.insert(graph[i][j - 1]);
@@ -226,18 +227,19 @@ bool has_tiling(string floor){
 					graph[i][j]->weights[graph[i + 1][j]] = 1;
 				}
 			}
+			
 			int x = i + j;
-			if(tileColors[i][j] != "none" && x % 2 == 1){
-				graph[i][j]->neighs.insert(end);
-				graph[i][j]->weights[end] = 1;
-				colorTable.insert(graph[i][j]);
-				numVertex += 1;
-			}
-			else if(tileColors[i][j] != "none" && x % 2 == 0){
-				start->neighs.insert(graph[i][j]);
-				start->weights[graph[i][j]] = 1;
-				colorTable.insert(graph[i][j]);
-				numVertex += 1;
+			if (tileColors[i][j] != "none") {
+    			if (x % 2 == 1) {
+        			graph[i][j]->neighs.insert(end);
+        			graph[i][j]->weights[end] = 1;
+    			}
+				else {
+        			start->neighs.insert(graph[i][j]);
+        			start->weights[graph[i][j]] = 1;
+    			}
+    			colorTable.insert(graph[i][j]);
+   				numVertex += 1;
 			}
 		}	
 	}
