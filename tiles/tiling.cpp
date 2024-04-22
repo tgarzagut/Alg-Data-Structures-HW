@@ -163,10 +163,91 @@ int max_flow(Vertex* s, Vertex* t, unordered_set<Vertex*> V)
 }
 
 
-bool has_tiling(string floor)
-{
-        // TODO
-        return false;
+bool has_tiling(string floor){
+
+	unordered_set <Vertex*> colorTable;
+    vector<vector<Vertex*> > graph;
+	vector<vector<string> > tileColors;
+	Vertex* start = new Vertex;
+	Vertex* end = new Vertex;
+	colorTable.insert(start);
+	colorTable.insert(end);
+	int numVertex = 0;
+	int numRows = 0;
+	int numCols = 0;
+
+	for(int i = 0; i < floor.length(); ++i) {
+    	if(floor[i] != '\n') {
+			Vertex* newVertex = new Vertex;
+			string dotColor;
+
+			if(numCols == 0) {
+				graph.push_back(vector<Vertex*>());
+				tileColors.push_back(vector<string>());
+			}
+			graph[numRows].push_back(newVertex);
+
+			if((numRows + numCols) % 2 == 0) {
+				dotColor = "red";
+			} else {
+				dotColor = "blue";
+			}
+			//if its a # then no color
+			if(floor[i] == '#') {
+				dotColor = "none";
+			}
+
+			tileColors[numRows].push_back(dotColor);
+			numCols += 1;
+		}
+		else {
+			numRows += 1;
+			numCols = 0;
+		}
+	} 
+
+	for(int i = 0; i < graph.size(); i++){
+		for(int j = 0; j < graph[i].size(); j++){
+			if(tileColors[i][j] == "red"){
+				if(tileColors[i][j - 1] != "none" && j - 1 > -1){
+					graph[i][j]->neighs.insert(graph[i][j - 1]);
+					graph[i][j]->weights[graph[i][j - 1]] = 1;
+				}
+				if(tileColors[i - 1][j] != "none" && i - 1 > -1){
+					graph[i][j]->neighs.insert(graph[i - 1][j]);
+					graph[i][j]->weights[graph[i - 1][j]] = 1;
+				}
+				if(tileColors[i][j + 1] != "none" && j + 1 < tileColors[i].size()){
+					graph[i][j]->neighs.insert(graph[i][j + 1]);
+					graph[i][j]->weights[graph[i][j + 1]] = 1;
+				}
+				if(tileColors[i + 1][j] != "none" && i + 1 < tileColors.size()){
+					graph[i][j]->neighs.insert(graph[i + 1][j]);
+					graph[i][j]->weights[graph[i + 1][j]] = 1;
+				}
+			}
+			int x = i + j;
+			if(tileColors[i][j] != "none" && x % 2 == 1){
+				graph[i][j]->neighs.insert(end);
+				graph[i][j]->weights[end] = 1;
+				colorTable.insert(graph[i][j]);
+				numVertex += 1;
+			}
+			else if(tileColors[i][j] != "none" && x % 2 == 0){
+				start->neighs.insert(graph[i][j]);
+				start->weights[graph[i][j]] = 1;
+				colorTable.insert(graph[i][j]);
+				numVertex += 1;
+			}
+		}	
+	}
+
+	if(numVertex/2 == max_flow(start, end, colorTable) && colorTable.size() % 2 == 0){
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 
 
